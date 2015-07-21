@@ -1,5 +1,6 @@
 import Data.Maybe
 import Data.Tree
+import Text.JSON
 import VhdlEntityTree
 import System.Directory
 import System.Environment
@@ -19,6 +20,7 @@ main = do
   let entityLists = map (findEntities . Tokens.alexScanTokens) $ xs
       entityAssoc = map (\(y:ys)->(y,ys)) $ filter (not . null) $ entityLists
   putStrLn $ drawTree $ buildTopLevelTree topLevelEntity entityAssoc
+  writeFile (topLevelEntity ++ ".json") $ encode . toJSObject $ entityAssoc
 
 findEntities :: [String] -> [String]
 findEntities [] = []
