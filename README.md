@@ -8,9 +8,22 @@ of HDL projects (initially we are only going to be targeting VHDL).
 i) Cabal install alex
 ii) alex Token.x generates Token.hs which contains the lexing functions
 iii) ghc --make VhdlParser.hs
-iv) run with the command:
+iv) Run with the command:
     ./VhdlParser --path=[VHDL FOLDER PATH] --topLevel=[Top Level Filename (omit extension)]
 
+Example cmd line output for FIR project:
+[bkettlew@vbox hdl-tools]$ ./VhdlParser --path=/home/bkettlew/sandbox/hdl-tools/FIR/ --topLevel=FIR_topEntity_0
+FIR_topEntity_0
+|
++- FIR_zdwwindowzm_1
+|
+`- FIR_dotp_2
+   |
+   +- FIR_satMult_3
+   |
+   `- FIR_dotp1_4
+      |
+      `- FIR_satPlus_5
 
 ## 1 - Develop Test Suite
 
