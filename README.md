@@ -5,11 +5,11 @@ of HDL projects (initially we are only going to be targeting VHDL).
 
 
 ## 0 - Required Tools and build procedure
-i) cabal install alex
+i) Cabal install alex
 ii) alex Token.x generates Token.hs which contains the lexing functions
-iii) ghc --make Token.hs
-iv) ghc --make VhdlParser.hs
-v) run with the command: ./VhdlParser --path="[VHDL FOLDER PATH]"
+iii) ghc --make VhdlParser.hs
+iv) run with the command:
+    ./VhdlParser --path=[VHDL FOLDER PATH] --topLevel=[Top Level Filename (omit extension)]
 
 
 ## 1 - Develop Test Suite

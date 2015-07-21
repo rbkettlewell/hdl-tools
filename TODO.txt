@@ -1,0 +1,10 @@
+Next Steps:
+- Add Json Top Level Tree encoding.
+- Automate build
+- Automate testing
+- Add support for generate statements ("replicates entities N times")
+- Add support for portmap typechecking.
+- Write up VHDL hierarchy topic for Edge Effect
+- Explore Purescript and/or Fay frontend simple graph visualization
+- Move from cmdline to web filedump, parsing, visualization.
+- Brainstorm dynamic Tree/source file in browser editing.
