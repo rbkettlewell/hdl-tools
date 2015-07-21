@@ -1,18 +1,24 @@
+import Data.Maybe
+import Data.Tree
+import VhdlEntityTree
 import System.Directory
 import System.Environment
 import qualified Data.List as List
 import qualified Tokens as Tokens
-import Data.Maybe
 
 type Command = String
 
 main = do
   args <- getArgs
-  let vhdlFolderPath = fromJust $ List.lookup "path" $ map parseCmdLineArg args
+  let cmds =  map parseCmdLineArg args
+      vhdlFolderPath = justLookup "path" cmds
+      topLevelEntity = justLookup "topLevel" cmds
   filePaths <- getDirectoryContents vhdlFolderPath
   let vhdlFilePaths = zipWith (++) (repeat vhdlFolderPath) $ filter (List.isInfixOf ".vhd") filePaths
   xs <- sequence $ map readFile vhdlFilePaths
-  sequence(map (print . findEntities . Tokens.alexScanTokens) $ xs)
+  let entityLists = map (findEntities . Tokens.alexScanTokens) $ xs
+      entityAssoc = map (\(y:ys)->(y,ys)) $ filter (not . null) $ entityLists
+  putStrLn $ drawTree $ buildTopLevelTree topLevelEntity entityAssoc
 
 findEntities :: [String] -> [String]
 findEntities [] = []
@@ -25,3 +31,7 @@ parseCmdLineArg a
   | otherwise = ("Invalid Command","")
   where
     arg = tail . snd $ List.break (=='=') a
+
+justLookup ::(Eq a) => a -> [(a,k)] -> k
+justLookup v aList = fromJust $ List.lookup v aList
+
